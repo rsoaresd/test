@@ -47,6 +47,7 @@ type Storage interface {
 	GetPullRequestsByRepository(repositoryName, organization, startDate, endDate string) (repoV1Alpha1.PullRequestsInfo, error)
 	GetFrequency(team *db.Teams, errorMessage, startDate, endDate string) (float64, error)
 	GetJiraStatus(key string) (string, error)
+	GetJiraByKey(key string) (*db.Bugs, error)
 	GetFailuresByDate(team *db.Teams, startDate, endDate string) ([]*failureV1Alpha1.Failure, error)
 	GetAllFailures(team *db.Teams) ([]*db.Failure, error)
 	ListAllRepositories() ([]*db.Repository, error)

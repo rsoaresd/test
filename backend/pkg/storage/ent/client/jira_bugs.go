@@ -387,6 +387,17 @@ func (d *Database) GetJiraStatus(key string) (string, error) {
 	return bug.Status, nil
 }
 
+func (d *Database) GetJiraByKey(key string) (*db.Bugs, error) {
+	bug, err := d.client.Bugs.Query().
+		Where(bugs.JiraKey(key)).
+		First(context.Background())
+	if err != nil {
+		return nil, err
+	}
+
+	return bug, nil
+}
+
 func (d *Database) BugExists(projectKey string, t *db.Teams) (bool, error) {
 	jiraKeys, err := d.client.Teams.QueryBugs(t).
 		Where(predicate.Bugs(bugs.JiraKey(projectKey))).

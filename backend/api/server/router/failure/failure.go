@@ -30,14 +30,14 @@ func (f *failureRouter) createFailure(ctx context.Context, w http.ResponseWriter
 		})
 	}
 
-	jiraStatus, err := f.Storage.GetJiraStatus(fr.JiraKey)
+	jira, err := f.Storage.GetJiraByKey(fr.JiraKey)
 	if err != nil {
 		f.Logger.Sugar().Warnf("Failed to get jira status:", err)
 	}
 
 	err = f.Storage.CreateFailure(failureV1Alpha1.Failure{
 		JiraKey:      fr.JiraKey,
-		JiraStatus:   jiraStatus,
+		JiraStatus:   jira.Status,
 		ErrorMessage: fr.ErrorMessage,
 	}, team.ID)
 	if err != nil {
