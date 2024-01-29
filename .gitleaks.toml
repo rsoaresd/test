@@ -1,4 +1,0 @@
-[allowlist]
-paths = [
-    '''frontend/deploy/overlays/local/users.htpasswd'''
-]
